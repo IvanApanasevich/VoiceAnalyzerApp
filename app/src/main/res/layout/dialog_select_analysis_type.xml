@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/nothing_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_analysis_type"
+        style="@style/TextAppearance.App.Title"
+        android:layout_marginBottom="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgAnalysisTypes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbSpeech"
+            style="@style/TextAppearance.App.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/speech"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/rbLetterA"
+            style="@style/TextAppearance.App.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/letter_a"
+            android:checked="true"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/rbLetterE"
+            style="@style/TextAppearance.App.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/letter_e"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/rbLetterU"
+            style="@style/TextAppearance.App.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/letter_u"
+            android:padding="8dp"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnConfirmSelection"
+        style="@style/Widget.App.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="OK"/>
+</LinearLayout>

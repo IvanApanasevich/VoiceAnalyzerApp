@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="nothing_background">#1E1E1E</color>
+    <color name="nothing_surface">#2C2C2C</color>
+    <color name="nothing_on_surface">#E0E0E0</color>
+    <color name="nothing_primary">#FFFFFF</color>
+    <color name="nothing_primary_variant">#CCCCCC</color>
+    <color name="nothing_accent">#FF4D4D</color>
+    <color name="disabled_text_color">#808080</color>
+    <color name="gray">#808080</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
+    <color name="button_start_session_bg">#FF6347</color>
+    <color name="button_start_session_stroke">#FFFFFF</color>
+    <color name="item_selected_background">#404040</color>
+    <color name="nothing_on_surface_variant">#40FFFFFF</color>
+    <color name="nothing_accent_variant_for_fab">#FF473A</color>
+</resources>

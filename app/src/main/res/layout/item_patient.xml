@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/item_patient_background_selector"
+    android:padding="12dp"> <!-- We'll create this selector -->
+
+    <CheckBox
+        android:id="@+id/cbSelectPatient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/nothing_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" /> <!-- Checkbox tint -->
+
+    <TextView
+        android:id="@+id/tvPatientNameLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/patient_label"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPatientName"
+        app:layout_constraintEnd_toStartOf="@+id/tvPatientName"
+        app:layout_constraintStart_toEndOf="@id/cbSelectPatient"
+        app:layout_constraintTop_toTopOf="@+id/tvPatientName" />
+
+    <TextView
+        android:id="@+id/tvPatientName"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvPatientNameLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvPatientNameLabel"
+        tools:text="Константинов Константин" />
+
+    <TextView
+        android:id="@+id/tvPatientAgeLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/age_label"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/cbSelectPatient"
+        app:layout_constraintTop_toBottomOf="@id/tvPatientNameLabel" />
+
+    <TextView
+        android:id="@+id/tvPatientAge"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tvPatientName"
+        app:layout_constraintTop_toTopOf="@id/tvPatientAgeLabel"
+        tools:text="7 лет" />
+
+    <ImageButton
+        android:id="@+id/btnDeletePatient"
+        android:layout_width="30dp"
+        android:layout_height="65dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/delete_patient_content_description"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:tint="@color/nothing_primary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

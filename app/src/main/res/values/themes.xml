@@ -1,0 +1,108 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.VoiceAnalyzerApp" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Nothing OS inspired theme -->
+        <item name="colorPrimary">@color/nothing_primary</item>
+        <item name="colorPrimaryVariant">@color/nothing_primary_variant</item>
+        <item name="colorOnPrimary">@color/nothing_background</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/nothing_accent</item>
+        <item name="colorSecondaryVariant">@color/nothing_accent</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/nothing_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <!-- Background color -->
+        <item name="android:windowBackground">@color/nothing_background</item>
+        <item name="colorSurface">@color/nothing_surface</item>
+        <item name="colorOnSurface">@color/nothing_on_surface</item>
+        <!-- Default font -->
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <!-- Text Appearance -->
+        <item name="android:textAppearance">@style/TextAppearance.App.Default</item>
+        <!-- Button Style -->
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+    </style>
+
+
+    <style name="Theme.VoiceAnalyzerApp" parent="Base.Theme.VoiceAnalyzerApp" />
+
+    <!-- Custom Text Appearance -->
+    <style name="TextAppearance.App.Default" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <item name="android:textColor">@color/nothing_on_surface</item>
+    </style>
+
+    <style name="TextAppearance.App.Title" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <item name="android:textColor">@color/nothing_primary</item>
+    </style>
+
+    <!-- Custom Button Style -->
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.TextButton">
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <item name="android:textColor">@color/nothing_primary</item>
+        <item name="backgroundTint">@color/nothing_surface</item>
+        <item name="strokeColor">@color/nothing_on_surface</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="Widget.App.Button.NoStroke" parent="Widget.App.Button">
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="Theme.VoiceAnalyzerApp.Dialog" parent="Theme.Material3.Dark.Dialog.Alert">
+        <item name="android:windowBackground">@color/nothing_background</item>
+        <item name="colorSurface">@color/nothing_surface</item>
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button.Dialog</item>
+    </style>
+
+    <style name="Widget.App.Button.Dialog" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <item name="android:textColor">@color/nothing_primary</item>
+    </style>
+
+    <style name="Widget.App.Button.StartSession" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/ndot</item>
+        <item name="fontFamily">@font/ndot</item>
+        <item name="android:textColor">@color/nothing_primary</item> <!-- White text -->
+        <item name="backgroundTint">@color/button_start_session_bg</item> <!-- Red background -->
+        <item name="strokeColor">@color/button_start_session_stroke</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="cornerRadius">8dp</item> <!-- Optional: for rounded corners -->
+    </style>
+
+
+
+    <style name="Widget.App.Button.IconOnly" parent="Widget.Material3.Button.IconButton">
+        <!-- Or parent="Widget.Material3.Button.IconButton" if you don't want outline by default -->
+        <item name="android:padding">12dp</item> <!-- Adjust padding as needed -->
+        <!-- You can customize strokeColor, iconTint, etc. here if needed -->
+        <item name="iconTint">@color/nothing_primary</item>
+        <item name="strokeColor">@color/nothing_on_surface</item>
+    </style>
+
+
+    <style name="Widget.App.Button.Play" parent="Widget.App.Button">
+        <item name="backgroundTint">@color/nothing_accent</item> <!-- Красный фон -->
+        <item name="android:textColor">@color/black</item>          <!-- Черный текст -->
+        <item name="strokeWidth">0dp</item>                         <!-- Убираем обводку, если не нужна для этого стиля -->
+        <!-- Вы можете также захотеть изменить strokeColor, если обводка нужна,
+             или другие атрибуты, специфичные для этих кнопок -->
+    </style>
+
+
+</resources>

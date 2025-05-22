@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SessionActivity">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutSession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarSession"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/session_title"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Patient Info (existing) -->
+    <TextView
+        android:id="@+id/tvPatientLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/patient_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayoutSession" />
+
+    <TextView
+        android:id="@+id/tvPatientName"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvPatientLabel"
+        app:layout_constraintStart_toEndOf="@id/tvPatientLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Константинов Константин" />
+
+    <TextView
+        android:id="@+id/tvAgeLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/age_label"
+        app:layout_constraintStart_toStartOf="@id/tvPatientLabel"
+        app:layout_constraintTop_toBottomOf="@id/tvPatientLabel" />
+
+    <TextView
+        android:id="@+id/tvPatientAge"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvAgeLabel"
+        app:layout_constraintStart_toStartOf="@id/tvPatientName"
+        app:layout_constraintEnd_toEndOf="@id/tvPatientName"
+        tools:text="7 лет" />
+
+    <!-- Letter Selection (existing) -->
+    <TextView
+        android:id="@+id/tvLetterLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/letter_label"
+        app:layout_constraintStart_toStartOf="@id/tvAgeLabel"
+        app:layout_constraintTop_toBottomOf="@id/tvAgeLabel" />
+
+    <TextView
+        android:id="@+id/tvCurrentLetter"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvLetterLabel"
+        app:layout_constraintStart_toEndOf="@id/tvLetterLabel"
+        tools:text="А" />
+
+    <Button
+        android:id="@+id/btnChangeLetter"
+        style="@style/Widget.App.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:minHeight="0dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/change_button"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvCurrentLetter"
+        app:layout_constraintStart_toEndOf="@id/tvCurrentLetter" />
+
+    <!-- Current Recording Section -->
+    <TextView
+        android:id="@+id/tvCurrentRecordingLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/recording_current_label"
+        app:layout_constraintStart_toStartOf="@id/tvLetterLabel"
+        app:layout_constraintTop_toBottomOf="@id/tvLetterLabel" />
+
+    <HorizontalScrollView
+        android:id="@+id/waveformScrollViewCurrent"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/nothing_surface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvCurrentRecordingLabel">
+
+        <com.example.voiceanalyzerapp.PlayerVisualizerView
+            android:id="@+id/visualizerCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </HorizontalScrollView>
+
+    <!-- Current Recording Buttons -->
+    <Button
+        android:id="@+id/btnPlayCurrent"
+        style="@style/Widget.App.Button.Play"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/play"
+        app:layout_constraintEnd_toStartOf="@+id/btnMakeReference"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/waveformScrollViewCurrent" />
+
+    <Button
+        android:id="@+id/btnMakeReference"
+        style="@style/Widget.App.Button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/make_reference"
+        app:layout_constraintEnd_toStartOf="@+id/btnSaveCurrentRecording"
+        app:layout_constraintStart_toEndOf="@id/btnPlayCurrent"
+        app:layout_constraintTop_toTopOf="@id/btnPlayCurrent" />
+
+    <ImageButton
+        android:id="@+id/btnSaveCurrentRecording"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_save"
+        android:contentDescription="@string/save_current_recording"
+        style="@style/Widget.App.Button.IconOnly"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="@id/btnPlayCurrent"
+        app:layout_constraintBottom_toBottomOf="@id/btnPlayCurrent"
+        app:layout_constraintStart_toEndOf="@+id/btnMakeReference"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <!-- Reference Recording Section -->
+    <TextView
+        android:id="@+id/tvReferenceRecordingLabel"
+        style="@style/TextAppearance.App.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/recording_reference_label"
+        app:layout_constraintStart_toStartOf="@id/tvCurrentRecordingLabel"
+        app:layout_constraintTop_toBottomOf="@id/btnPlayCurrent" />
+
+    <HorizontalScrollView
+        android:id="@+id/waveformScrollViewReference"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/nothing_surface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvReferenceRecordingLabel">
+
+        <com.example.voiceanalyzerapp.PlayerVisualizerView
+            android:id="@+id/visualizerReference"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </HorizontalScrollView>
+
+    <!-- Reference Recording Buttons -->
+    <Button
+        android:id="@+id/btnPlayReference"
+        style="@style/Widget.App.Button.Play"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/play"
+        app:layout_constraintEnd_toStartOf="@+id/btnLoadReferenceFile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/waveformScrollViewReference" />
+
+    <Button
+        android:id="@+id/btnLoadReferenceFile"
+        style="@style/Widget.App.Button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/load_file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnPlayReference"
+        app:layout_constraintTop_toTopOf="@id/btnPlayReference" />
+
+    <!-- Record Button (existing) -->
+    <ImageButton
+        android:id="@+id/btnRecordSession"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/record_button_background"
+        android:contentDescription="@string/start_recording_session"
+        android:scaleType="center"
+        android:src="@drawable/ic_record"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/nothing_primary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    
