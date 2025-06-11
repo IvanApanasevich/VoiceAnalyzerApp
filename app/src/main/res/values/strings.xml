@@ -13,6 +13,11 @@
     <string name="shimmer">Шиммер</string>
     <string name="npr">HNR</string>
     <string name="intensity">Громкость</string>
+    <string name="phonation_time">Время фонации</string>
+    <string name="formant_1">F1</string>
+    <string name="formant_2">F2</string>
+    <string name="formant_3">F3</string>
+    <string name="cosine_similarity_label">Сходство</string>
     <string name="select_analysis_type">Выберите тип анализа</string>
     <string name="speech">Разговорная речь</string>
     <string name="letter_a">Буква А</string>
@@ -48,7 +53,7 @@
 
     <!-- ... other strings ... -->
     <string name="session_title">Занятие</string>
-    <string name="letter_label">Буква:</string>
+    <string name="letter_label">Фонема:</string>
     <string name="change_button">Изменить</string>
     <string name="recording_current_label">Запись</string>
     <string name="make_reference">Сделать эталоном</string>
@@ -56,8 +61,8 @@
     <string name="start_recording_session">Начать запись для сессии</string>
     <string name="stop_recording_session">Остановить запись для сессии</string>
     <string name="default_letter">А</string>
-    <string name="prompt_enter_letter">Введите букву (А-Я, кроме Ь, Ъ)</string>
-    <string name="invalid_letter_toast">Неверная буква. Введите одну русскую букву (кроме Ь, Ъ).</string>
+    <string name="prompt_enter_letter">Введите Фонему</string>
+    <string name="invalid_letter_toast">Неверная Фонема. Введите одну русскую букву, которая представляет фонему.</string>
     <string name="no_current_recording_to_make_reference">Нет текущей записи для установки как эталон.</string>
     <string name="reference_set_successfully">Эталонная запись установлена.</string>
     <string name="error_setting_reference">Ошибка установки эталона.</string>
@@ -88,4 +93,12 @@
     <string name="error_copying_loaded_file">Ошибка копирования загруженного файла.</string>
     <string name="select_audio_file_title">Выберите аудиофайл</string>
     <string name="save_audio_file_title">Сохранить аудио как</string>
+
+    <string name="file_saved_successfully_to_selected_place">Файл успешно сохранен</string>
+    <string name="error_updating_path_in_db">Ошибка обновления пути в БД</string>
+
+
+    <string name="characteristic_name_header">Параметр</string>
+    <string name="current_header_short">Тек.</string>
+    <string name="reference_header_short">Этал.</string>
 </resources>

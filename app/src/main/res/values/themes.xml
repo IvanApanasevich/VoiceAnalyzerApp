@@ -104,5 +104,37 @@
              или другие атрибуты, специфичные для этих кнопок -->
     </style>
 
+    <style name="CharacteristicTableRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <style name="CharacteristicTableRow.Alt">
+        <item name="android:background">#0A000000</item> <!-- Легкий фон для чередования -->
+    </style>
+
+    <style name="CharacteristicName" parent="TextAppearance.App.Default">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.2</item> <!-- Больше места для названия -->
+    </style>
+
+    <style name="CharacteristicValue" parent="TextAppearance.App.Default">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_marginStart">4dp</item> <!-- Небольшой отступ между значениями -->
+
+    </style>
+
+    <style name="TextAppearance.App.Default.Bold" parent="TextAppearance.App.Default">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

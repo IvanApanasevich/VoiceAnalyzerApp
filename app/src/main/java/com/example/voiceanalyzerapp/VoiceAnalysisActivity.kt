@@ -17,7 +17,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.isVisible // Для управления видимостью кнопок
 import com.example.voiceanalyzerapp.databinding.ActivityVoiceAnalysisBinding
 import java.io.BufferedInputStream
 import java.io.File
@@ -120,10 +119,15 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
 
     private fun resetCharacteristicsDisplay() {
         binding.tvF0Value.text = "--- Hz"
-        binding.tvJitterValue.text = "--- %"
-        binding.tvShimmerValue.text = "--- %"
+        binding.tvJitterValue.text = "---  %"
+        binding.tvShimmerValue.text = "---  %"
         binding.tvNprValue.text = "--- dB"
         binding.tvIntensityValue.text = "--- dB"
+        // Новые характеристики
+        binding.tvPhonationTimeValue.text = "--- ms"
+        binding.tvF1Value.text = "--- Hz"
+        binding.tvF2Value.text = "--- Hz"
+        binding.tvF3Value.text = "--- Hz"
     }
 
     private fun stopRecordingAndAnalyze() {
@@ -135,7 +139,6 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
                 Log.d(TAG, "MediaRecorder stopped successfully. Raw file: $rawRecordingFilePath")
             } catch (e: RuntimeException) {
                 Log.e(TAG, "stopRecording() failed: ${e.message}")
-                // Если остановка не удалась, возможно, файл поврежден или не создан
                 rawRecordingFilePath?.let { File(it).delete() }
             } finally {
                 release()
@@ -152,61 +155,68 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
             Toast.makeText(this, "Запись остановлена. Анализ...", Toast.LENGTH_SHORT).show()
             runOnUiThread {
                 binding.tvF0Value.text = "Анализ..."
-                // ... (остальные текстовые поля)
+                binding.tvJitterValue.text = "Анализ..."
+                binding.tvShimmerValue.text = "Анализ..."
+                binding.tvNprValue.text = "Анализ..."
+                binding.tvIntensityValue.text = "Анализ..."
+                binding.tvPhonationTimeValue.text = "Анализ..."
+                binding.tvF1Value.text = "Анализ..."
+                binding.tvF2Value.text = "Анализ..."
+                binding.tvF3Value.text = "Анализ..."
             }
-            // Передаем путь для сохранения обработанного аудио
             audioAnalyzer.analyze(rawFile.absolutePath, playableAudioFilePath)
         } else {
             Toast.makeText(this, "Ошибка записи или файл пуст. Попробуйте снова.", Toast.LENGTH_LONG).show()
             binding.playerVisualizerView.updateVisualizer(null)
             resetCharacteristicsDisplay()
-            updatePlayButtonState() // Обновляем доступность кнопки Play
+            updatePlayButtonState()
         }
     }
 
-    // --- AudioAnalyzer.AnalysisListener Implementation ---
     override fun onAnalysisComplete(result: AnalysisResult, processedAudioPath: String?) {
         runOnUiThread {
-            // Удаляем сырой файл после успешного анализа (или если обработанный не создался)
             rawRecordingFilePath?.let { File(it).delete() }
             Log.d(TAG, "Raw recording file deleted after analysis.")
 
             if (result.errorMessage != null) {
                 Toast.makeText(this, result.errorMessage, Toast.LENGTH_LONG).show()
                 resetCharacteristicsDisplay()
-                // Если была ошибка, но processedAudioPath все же есть (маловероятно, но для безопасности)
-                // или если его нет, то удаляем и playableAudioFilePath
                 if (processedAudioPath == null) {
                     playableAudioFilePath?.let { File(it).delete() }
                 }
                 updatePlayButtonState()
-                binding.playerVisualizerView.updateVisualizer(null) // Очищаем визуализатор
+                binding.playerVisualizerView.updateVisualizer(null)
                 return@runOnUiThread
             }
 
-            // Если анализ успешен и processedAudioPath не null, то это наш новый playableAudioFilePath
             if (processedAudioPath != null) {
-                this.playableAudioFilePath = processedAudioPath // Обновляем, если имя файла изменилось (хотя мы передавали то же)
+                this.playableAudioFilePath = processedAudioPath
                 val audioFile = File(processedAudioPath)
                 if (audioFile.exists() && audioFile.length() > 0) {
-                    val audioBytes = fileToBytes(audioFile) // Для PlayerVisualizerView
+                    val audioBytes = fileToBytes(audioFile)
                     binding.playerVisualizerView.updateVisualizer(audioBytes.takeIf { it.isNotEmpty() })
                     binding.playerVisualizerView.updatePlayerPercent(0f)
                 } else {
                     binding.playerVisualizerView.updateVisualizer(null)
                 }
             } else {
-                // Анализ успешен, но файл не был сохранен (ошибка сохранения в AudioAnalyzer)
                 Toast.makeText(this, "Анализ успешен, но не удалось сохранить обработанный файл.", Toast.LENGTH_LONG).show()
-                playableAudioFilePath?.let { File(it).delete() } // Удаляем, если он вдруг был создан некорректно
+                playableAudioFilePath?.let { File(it).delete() }
                 binding.playerVisualizerView.updateVisualizer(null)
             }
 
             binding.tvF0Value.text = if (result.f0 > 0) String.format("%.2f Hz", result.f0) else "--- Hz"
             binding.tvJitterValue.text = if (result.jitter > 0) String.format("%.2f %%", result.jitter) else "--- %"
             binding.tvShimmerValue.text = if (result.shimmer > 0) String.format("%.2f %%", result.shimmer) else "--- %"
-            binding.tvNprValue.text = if (result.hnr != 0.0) String.format("%.2f dB", result.hnr) else "--- dB"
-            binding.tvIntensityValue.text = String.format("%.2f dB", result.intensity)
+            binding.tvNprValue.text = if (result.hnr != 0.0) String.format("%.2f dB", result.hnr) else "--- dB" // HNR может быть 0
+            binding.tvIntensityValue.text = String.format("%.2f dB", result.intensity) // Интенсивность может быть 0 или отрицательной
+
+            // Новые характеристики
+            binding.tvPhonationTimeValue.text = if (result.phonationTimeMs > 0) String.format("%.0f ms", result.phonationTimeMs) else "--- ms"
+            binding.tvF1Value.text = if (result.f1 > 0) String.format("%.2f Hz", result.f1) else "--- Hz"
+            binding.tvF2Value.text = if (result.f2 > 0) String.format("%.2f Hz", result.f2) else "--- Hz"
+            binding.tvF3Value.text = if (result.f3 > 0) String.format("%.2f Hz", result.f3) else "--- Hz"
+
 
             Toast.makeText(this, "Анализ завершен!", Toast.LENGTH_SHORT).show()
             updatePlayButtonState()
@@ -215,8 +225,8 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
 
     override fun onAnalysisError(errorMessage: String) {
         runOnUiThread {
-            rawRecordingFilePath?.let { File(it).delete() } // Удаляем сырой файл при ошибке анализа
-            playableAudioFilePath?.let { File(it).delete() } // Также удаляем целевой файл, если он создавался
+            rawRecordingFilePath?.let { File(it).delete() }
+            playableAudioFilePath?.let { File(it).delete() }
 
             Toast.makeText(this, "Ошибка анализа: $errorMessage", Toast.LENGTH_LONG).show()
             resetCharacteristicsDisplay()
@@ -227,7 +237,6 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
 
 
     private fun startRecording() {
-        // Очищаем предыдущие файлы перед новой записью
         clearCacheFiles()
         resetCharacteristicsDisplay()
         binding.playerVisualizerView.updateVisualizer(null)
@@ -235,7 +244,7 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
         mediaPlayer?.release()
         mediaPlayer = null
         stopProgressUpdater()
-        updatePlayButtonState() // Кнопка Play должна быть неактивна
+        updatePlayButtonState()
 
         val mr: MediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaRecorder(this)
@@ -245,12 +254,9 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
         }
 
         mr.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP) // Записываем в 3GP
+        mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
         mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-        // Устанавливаем более высокое качество для последующей обработки, если возможно
-        // mr.setAudioSamplingRate(44100) // Опционально, если поддерживается кодеком
-        // mr.setAudioEncodingBitRate(96000) // Опционально
-        mr.setOutputFile(rawRecordingFilePath) // Записываем в сырой файл
+        mr.setOutputFile(rawRecordingFilePath)
 
         this.mediaRecorder = mr
         Log.d(TAG, "Attempting to record raw audio to: $rawRecordingFilePath")
@@ -263,22 +269,20 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
             Toast.makeText(this@VoiceAnalysisActivity, "Запись началась...", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             Log.e(TAG, "MediaRecorder prepare() failed for $rawRecordingFilePath: ${e.message}")
-            // ... (обработка ошибок как раньше)
             Toast.makeText(this@VoiceAnalysisActivity, "Ошибка начала записи: ${e.message}", Toast.LENGTH_SHORT).show()
             isRecording = false
             binding.btnRecord.setImageResource(R.drawable.ic_record)
             this.mediaRecorder?.release()
             this.mediaRecorder = null
-            rawRecordingFilePath?.let { File(it).delete() } // Удаляем файл, если подготовка не удалась
+            rawRecordingFilePath?.let { File(it).delete() }
         } catch (e: IllegalStateException) {
             Log.e(TAG, "MediaRecorder start failed for $rawRecordingFilePath: ${e.message}")
-            // ... (обработка ошибок как раньше)
             Toast.makeText(this@VoiceAnalysisActivity, "Ошибка старта записи: ${e.message}", Toast.LENGTH_SHORT).show()
             isRecording = false
             binding.btnRecord.setImageResource(R.drawable.ic_record)
             this.mediaRecorder?.release()
             this.mediaRecorder = null
-            rawRecordingFilePath?.let { File(it).delete() } // Удаляем файл
+            rawRecordingFilePath?.let { File(it).delete() }
         }
     }
 
@@ -287,17 +291,16 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
             Toast.makeText(this, "Сначала остановите запись", Toast.LENGTH_SHORT).show()
             return
         }
-        val audioFileToPlay = playableAudioFilePath?.let { File(it) } // Воспроизводим обработанный WAV
+        val audioFileToPlay = playableAudioFilePath?.let { File(it) }
 
         if (audioFileToPlay != null && audioFileToPlay.exists() && audioFileToPlay.length() > 0) {
             mediaPlayer?.release()
             stopProgressUpdater()
             mediaPlayer = MediaPlayer().apply {
                 try {
-                    setDataSource(audioFileToPlay.absolutePath) // Используем playableAudioFilePath
+                    setDataSource(audioFileToPlay.absolutePath)
                     prepare()
                     start()
-                    // Обновление визуализатора для воспроизводимого файла, если он еще не загружен
                     if (binding.playerVisualizerView.getBytes() == null && audioFileToPlay.exists() && audioFileToPlay.length() > 0) {
                         Log.w(TAG, "Visualizer was empty during play, attempting to load bytes for: ${audioFileToPlay.absolutePath}")
                         val audioBytes = fileToBytes(audioFileToPlay)
@@ -307,7 +310,6 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
                     binding.playerVisualizerView.updatePlayerPercent(0f)
                     startProgressUpdater()
                     Toast.makeText(this@VoiceAnalysisActivity, "Воспроизведение...", Toast.LENGTH_SHORT).show()
-                    // ... (setOnCompletionListener, setOnErrorListener как раньше) ...
                     setOnCompletionListener {
                         Toast.makeText(this@VoiceAnalysisActivity, "Воспроизведение завершено", Toast.LENGTH_SHORT).show()
                         it.release()
@@ -325,7 +327,7 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
                         true
                     }
 
-                } catch (e: Exception) { // Ловим более общие исключения
+                } catch (e: Exception) {
                     Log.e(TAG, "MediaPlayer setup failed: ${e.message}", e)
                     Toast.makeText(this@VoiceAnalysisActivity, "Ошибка воспроизведения", Toast.LENGTH_SHORT).show()
                     release()
@@ -337,10 +339,6 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
             Toast.makeText(this, "Нет записи для воспроизведения", Toast.LENGTH_SHORT).show()
         }
     }
-    // ... (остальные методы setupProgressUpdater, fileToBytes, onSupportNavigateUp, onBackPressed,
-    //      showAnalysisTypeDialog, checkPermissions, requestPermissions, onRequestPermissionsResult, onStop)
-    //      остаются в основном такими же, но onStop должен также очищать файлы, если это необходимо
-    //      или останавливать анализ.
 
     override fun onStop() {
         super.onStop()
@@ -350,11 +348,8 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
         mediaPlayer = null
         stopProgressUpdater()
         audioAnalyzer.stopAnalysis()
-        // Не очищаем файлы в onStop, так как пользователь может свернуть приложение и вернуться
-        // Очистка происходит в onCreate/onStart и при начале новой записи.
     }
 
-    // --- Методы ниже остаются в основном без изменений ---
     private fun setupProgressUpdater() {
         progressUpdateRunnable = Runnable {
             mediaPlayer?.let {
