@@ -11,7 +11,7 @@
     <string name="f0">F0</string>
     <string name="jitter">Джиттер</string>
     <string name="shimmer">Шиммер</string>
-    <string name="npr">NPR</string>
+    <string name="npr">HNR</string>
     <string name="intensity">Громкость</string>
     <string name="select_analysis_type">Выберите тип анализа</string>
     <string name="speech">Разговорная речь</string>

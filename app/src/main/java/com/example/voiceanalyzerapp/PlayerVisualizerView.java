@@ -39,6 +39,11 @@ public class PlayerVisualizerView extends View {
         init();
     }
 
+    public byte[] getBytes() {
+        return this.bytes;
+    }
+
+
     private void init() {
         bytes = null;
 
