@@ -146,7 +146,7 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
         }
         mediaRecorder = null
         isRecording = false
-        binding.btnRecord.setImageResource(R.drawable.ic_record)
+        binding.btnRecord.setImageResource(R.drawable.ic_record1)
         binding.btnRecord.contentDescription = getString(R.string.start_recording)
 
 
@@ -271,7 +271,7 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
             Log.e(TAG, "MediaRecorder prepare() failed for $rawRecordingFilePath: ${e.message}")
             Toast.makeText(this@VoiceAnalysisActivity, "Ошибка начала записи: ${e.message}", Toast.LENGTH_SHORT).show()
             isRecording = false
-            binding.btnRecord.setImageResource(R.drawable.ic_record)
+            binding.btnRecord.setImageResource(R.drawable.ic_record1)
             this.mediaRecorder?.release()
             this.mediaRecorder = null
             rawRecordingFilePath?.let { File(it).delete() }
@@ -279,7 +279,7 @@ class VoiceAnalysisActivity : AppCompatActivity(), AudioAnalyzer.AnalysisListene
             Log.e(TAG, "MediaRecorder start failed for $rawRecordingFilePath: ${e.message}")
             Toast.makeText(this@VoiceAnalysisActivity, "Ошибка старта записи: ${e.message}", Toast.LENGTH_SHORT).show()
             isRecording = false
-            binding.btnRecord.setImageResource(R.drawable.ic_record)
+            binding.btnRecord.setImageResource(R.drawable.ic_record1)
             this.mediaRecorder?.release()
             this.mediaRecorder = null
             rawRecordingFilePath?.let { File(it).delete() }

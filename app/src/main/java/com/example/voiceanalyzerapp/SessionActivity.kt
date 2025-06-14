@@ -394,7 +394,7 @@ class SessionActivity : AppCompatActivity() {
             releaseMediaRecorder()
         }
         isRecording = false
-        binding.btnRecordSession.setImageResource(R.drawable.ic_record)
+        binding.btnRecordSession.setImageResource(R.drawable.ic_record1)
         binding.btnRecordSession.contentDescription = getString(R.string.start_recording_session)
 
         if (rawFileCreatedSuccessfully && currentTrainingSession != null && currentAudioFilePath != null && File(currentAudioFilePath!!).exists() && File(currentAudioFilePath!!).length() > 0) {

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".VoiceAnalysisActivity">
 
-    <!-- Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -24,314 +23,363 @@
             app:navigationIconTint="@color/nothing_primary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/tvRecordingLabel"
-        style="@style/TextAppearance.App.Default"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/recording"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-    <HorizontalScrollView
-        android:id="@+id/waveformScrollView"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewAnalysis"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/nothing_surface"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toTopOf="@id/btnRecord"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRecordingLabel">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.example.voiceanalyzerapp.PlayerVisualizerView
-            android:id="@+id/playerVisualizerView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/btnPlay"
-        style="@style/Widget.App.Button.Play"
-        android:layout_width="169dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/play"
-        app:layout_constraintEnd_toStartOf="@+id/btnShowSpectrogram"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/waveformScrollView" />
-
-    <Button
-        android:id="@+id/btnShowSpectrogram"
-        style="@style/Widget.App.Button"
-        android:layout_width="195dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/show_spectrogram"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnPlay"
-        app:layout_constraintTop_toTopOf="@id/btnPlay" />
-
-    <!-- Characteristics Section -->
-    <TextView
-        android:id="@+id/tvCharacteristicsLabel"
-        style="@style/TextAppearance.App.Default"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/characteristics"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnPlay" />
-
-    <TableLayout
-        android:id="@+id/tableCharacteristics"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:stretchColumns="1"
-        android:background="@color/nothing_surface"
-        app:layout_constraintTop_toBottomOf="@id/tvCharacteristicsLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnRecord"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginBottom="16dp"
-        android:isScrollContainer="true"
-        android:paddingBottom="8dp">
-
-        <!-- F0 Row -->
-        <TableRow
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
+            android:paddingBottom="16dp">
+
             <TextView
+                android:id="@+id/tvRecordingLabel"
                 style="@style/TextAppearance.App.Default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/f0" />
-            <TextView
-                android:id="@+id/tvF0Value"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/recording"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Jitter Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#08000000"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
+            <HorizontalScrollView
+                android:id="@+id/waveformScrollView"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/nothing_surface"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRecordingLabel">
+
+                <com.example.voiceanalyzerapp.PlayerVisualizerView
+                    android:id="@+id/playerVisualizerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </HorizontalScrollView>
+
+            <Button
+                android:id="@+id/btnPlay"
+                style="@style/Widget.App.Button.Play"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/play"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnShowSpectrogram"
+                app:layout_constraintTop_toBottomOf="@id/waveformScrollView" />
+
+            <Button
+                android:id="@+id/btnShowSpectrogram"
+                style="@style/Widget.App.Button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/show_spectrogram"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnPlay"
+                app:layout_constraintTop_toTopOf="@id/btnPlay" />
+
             <TextView
+                android:id="@+id/tvCharacteristicsLabel"
                 style="@style/TextAppearance.App.Default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/jitter" />
-            <TextView
-                android:id="@+id/tvJitterValue"
-                style="@style/TextAppearance.App.Default"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/characteristics"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnPlay" />
+
+            <TableLayout
+                android:id="@+id/tableCharacteristics"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
-
-        <!-- Shimmer Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/shimmer" />
-            <TextView
-                android:id="@+id/tvShimmerValue"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                android:background="@color/nothing_surface"
+                android:paddingBottom="8dp"
+                android:stretchColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCharacteristicsLabel">
 
-        <!-- HNR (NPR) Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#08000000"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/npr" />
-            <TextView
-                android:id="@+id/tvNprValue"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
 
-        <!-- Intensity Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/intensity" />
-            <TextView
-                android:id="@+id/tvIntensityValue"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                    <TextView
+                        style="@style/TextAppearance.App.Default.Bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/parameters_header" />
 
-        <!-- Phonation Time Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#08000000"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/phonation_time" /> <!-- ЗАМЕНИТЕ НА ВАШУ СТРОКУ -->
-            <TextView
-                android:id="@+id/tvPhonationTimeValue"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                    <TextView
+                        style="@style/TextAppearance.App.Default.Bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/current_value_header_short" />
+                </TableRow>
 
-        <!-- F1 Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/formant_1" /> <!-- ЗАМЕНИТЕ НА ВАШУ СТРОКУ -->
-            <TextView
-                android:id="@+id/tvF1Value"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                <View
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?android:attr/listDivider" />
 
-        <!-- F2 Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#08000000"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp">
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/formant_2" /> <!-- ЗАМЕНИТЕ НА ВАШУ СТРОКУ -->
-            <TextView
-                android:id="@+id/tvF2Value"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
 
-        <!-- F3 Row -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp"> <!-- Больший padding снизу для последней строки -->
-            <TextView
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/formant_3" /> <!-- ЗАМЕНИТЕ НА ВАШУ СТРОКУ -->
-            <TextView
-                android:id="@+id/tvF3Value"
-                style="@style/TextAppearance.App.Default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end" />
-        </TableRow>
-    </TableLayout>
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/f0" />
 
+                    <TextView
+                        android:id="@+id/tvF0Value"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
 
-    <!-- Record Button -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#08000000"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/jitter" />
+
+                    <TextView
+                        android:id="@+id/tvJitterValue"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/shimmer" />
+
+                    <TextView
+                        android:id="@+id/tvShimmerValue"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#08000000"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/npr" />
+
+                    <TextView
+                        android:id="@+id/tvNprValue"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/intensity" />
+
+                    <TextView
+                        android:id="@+id/tvIntensityValue"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#08000000"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/phonation_time" />
+
+                    <TextView
+                        android:id="@+id/tvPhonationTimeValue"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/formant_1" />
+
+                    <TextView
+                        android:id="@+id/tvF1Value"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#08000000"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/formant_2" />
+
+                    <TextView
+                        android:id="@+id/tvF2Value"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/formant_3" />
+
+                    <TextView
+                        android:id="@+id/tvF3Value"
+                        style="@style/TextAppearance.App.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+                </TableRow>
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
     <ImageButton
         android:id="@+id/btnRecord"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/record_button_background"
-        android:src="@drawable/ic_record"
+        android:src="@drawable/ic_record1"
         app:tint="@color/nothing_primary"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"

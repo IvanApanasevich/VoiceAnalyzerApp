@@ -101,4 +101,7 @@
     <string name="characteristic_name_header">Параметр</string>
     <string name="current_header_short">Тек.</string>
     <string name="reference_header_short">Этал.</string>
+
+    <string name="parameters_header">Параметр</string>
+    <string name="current_value_header_short">Знач.</string>
 </resources>

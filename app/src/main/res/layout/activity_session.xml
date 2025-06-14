@@ -520,7 +520,7 @@
         android:background="@drawable/record_button_background"
         android:contentDescription="@string/start_recording_session"
         android:scaleType="center"
-        android:src="@drawable/ic_record"
+        android:src="@drawable/ic_record1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
